@@ -99,12 +99,12 @@ class HTML_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'                   => 'widget_html_code',
-			'description'                 => __( 'Arbitrary HTML code with syntax highlighting.', 'html-widget' ),
+			'classname'                   => 'widget_html',
+			'description'                 => __( 'Displays HTML code with syntax highlighting.', 'html-widget' ),
 			'customize_selective_refresh' => true,
 		);
 		$control_ops = array();
-		parent::__construct( 'html_code', __( 'HTML', 'html-widget' ), $widget_ops, $control_ops );
+		parent::__construct( 'html_widget', __( 'HTML', 'html-widget' ), $widget_ops, $control_ops );
 	}
 
 	/**
@@ -185,6 +185,7 @@ class HTML_Widget extends WP_Widget {
 			editor.on("change", function(editor, change) {
 				document.getElementById('<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>').value = editor.getValue();
 			});
+			editor.refresh();
 		} );
 		</script>
 
