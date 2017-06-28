@@ -96,7 +96,7 @@ gulp.task('styles', ['clean:styles'], function() {
         .pipe(rename('styles.min.css'))
 
         // Create sourcemap.
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('./'))
 
         // Create style.css.
         .pipe(gulp.dest(paths.css))
@@ -134,9 +134,9 @@ gulp.task('scripts', ['clean:scripts'], function() {
         .pipe(sourcemaps.init())
         .pipe(concat('scripts.min.js'))
 		.pipe(uglify({
-            mangle: false
+            mangle: true
         }))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(paths.scripts))
         .pipe(browserSync.stream());
 });
