@@ -1,0 +1,30 @@
+{
+  "name": "html-widget",
+  "version": "0.1.0",
+  "description": "Adds a simple HTML Code Widget with syntax highlighting for HTML, CSS and JavaScript code.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "*",
+    "gulp-notify": "*",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sort": "^1.1.1",
+    "gulp-wp-pot": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seothemes/html-widget"
+  },
+  "keywords": [
+    "theme"
+  ],
+  "author": "SeoThemes",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/seothemes/html-widget/issues"
+  },
+  "homepage": "https://github.com/seothemes/html-widget"
+}
