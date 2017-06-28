@@ -1,3 +1,11 @@
+/*
+ * Main plugin stylesheet.
+ */
+
 .CodeMirror {
 	border: 1px solid #e5e5e5;
 }
+
+// Import CodeMirror styles.
+@import "codemirror";
+@import "theme-material";

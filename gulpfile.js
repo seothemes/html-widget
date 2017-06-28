@@ -22,10 +22,10 @@ var wpPot = require('gulp-wp-pot');
 
 // Set assets paths.
 var paths = {
-    css: './assets/styles/',
+    css: './assets/styles/min/',
     sass: './assets/styles/*.scss',
     concat: ['./assets/scripts/*.js', '!./assets/scripts/*.min.js' ],
-    scripts: './assets/scripts/',
+    scripts: './assets/scripts/min/',
     php: './*.php'
 };
 
@@ -51,7 +51,7 @@ function handleErrors() {
  * Delete style.css and style.min.css before we minify and optimize
  */
 gulp.task('clean:styles', function() {
-    return del('./assets/styles/styles.min.css')
+    return del('./assets/styles/min/styles.min.css')
 });
 
 /**
@@ -62,7 +62,7 @@ gulp.task('clean:styles', function() {
  * https://www.npmjs.com/package/gulp-autoprefixer
  * https://www.npmjs.com/package/css-mqpacker
  */
-gulp.task('postcss', ['clean:styles'], function() {
+gulp.task('styles', ['clean:styles'], function() {
     return gulp.src(paths.sass)
 
         // Deal with errors.
@@ -93,7 +93,7 @@ gulp.task('postcss', ['clean:styles'], function() {
         .pipe(cssnano({
             safe: true // Use safe optimizations.
         }))
-        .pipe(rename('style.min.css'))
+        .pipe(rename('styles.min.css'))
 
         // Create sourcemap.
         .pipe(sourcemaps.write())
@@ -119,14 +119,14 @@ gulp.task('sass:lint', ['postcss'], function() {
  * Delete scripts before we concat and minify
  */
 gulp.task('clean:scripts', function() {
-    return del('./assets/scripts/scripts.min.js');
+    return del('./assets/scripts/min/scripts.min.js');
 });
 
 /**
  * Concatenate javascripts after they're clobbered.
  * https://www.npmjs.com/package/gulp-concat
  */
-gulp.task('concat', ['clean:scripts'], function() {
+gulp.task('scripts', ['clean:scripts'], function() {
     return gulp.src(paths.concat)
         .pipe(plumber({
             errorHandler: handleErrors
@@ -153,7 +153,7 @@ gulp.task('clean:pot', function() {
  *
  * https://www.npmjs.com/package/gulp-wp-pot
  */
-gulp.task('wp-pot', ['clean:pot'], function() {
+gulp.task('i18n', ['clean:pot'], function() {
     return gulp.src(paths.php)
         .pipe(plumber({
             errorHandler: handleErrors
@@ -161,7 +161,7 @@ gulp.task('wp-pot', ['clean:pot'], function() {
         .pipe(sort())
         .pipe(wpPot({
             domain: 'html-widget',
-            destFile: './languages/html-widget.pot',
+            destFile: 'html-widget.pot',
             package: 'html-widget',
             bugReport: 'http://github.com/seothemes/html-widget',
             lastTranslator: 'Lee Anthony <seothemeswp@gmail.com>',
@@ -192,13 +192,9 @@ gulp.task('watch', function() {
     gulp.watch(paths.sass, ['styles']);
     gulp.watch(paths.scripts, ['scripts']);
     gulp.watch(paths.concat, ['scripts']);
-    gulp.watch(paths.sprites, ['sprites']);
 });
 
 /**
  * Create indivdual tasks.
  */
-gulp.task('i18n', ['wp-pot']);
-gulp.task('scripts', ['concat']);
-gulp.task('styles', ['postcss']);
 gulp.task('default', ['i18n', 'styles', 'scripts']);
