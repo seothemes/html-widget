@@ -70,8 +70,7 @@ gulp.task('styles', ['clean:styles'], function() {
             errorHandler: handleErrors
         }))
 
-        // Wrap tasks in a sourcemap.
-        .pipe(sourcemaps.init())
+        // .pipe(sourcemaps.init())
 
         // Compile Sass using LibSass.
         .pipe(sass({
@@ -95,8 +94,7 @@ gulp.task('styles', ['clean:styles'], function() {
         }))
         .pipe(rename('styles.min.css'))
 
-        // Create sourcemap.
-        .pipe(sourcemaps.write('./'))
+        // .pipe(sourcemaps.write('./'))
 
         // Create style.css.
         .pipe(gulp.dest(paths.css))
@@ -131,12 +129,12 @@ gulp.task('scripts', ['clean:scripts'], function() {
         .pipe(plumber({
             errorHandler: handleErrors
         }))
-        .pipe(sourcemaps.init())
+        // .pipe(sourcemaps.init())
         .pipe(concat('scripts.min.js'))
 		.pipe(uglify({
             mangle: true
         }))
-        .pipe(sourcemaps.write('./'))
+        // .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(paths.scripts))
         .pipe(browserSync.stream());
 });
