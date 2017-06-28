@@ -1,6 +1,6 @@
 # HTML Widget
 
-Adds a simple HTML Code Widget with syntax highlighting for HTML, CSS and JavaScript code.
+Adds a simple HTML widget with syntax highlighting for HTML, CSS and JavaScript code.
 
 *Customizer preview*
 

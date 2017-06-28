@@ -56,15 +56,19 @@ function html_widget_scripts_styles() {
 		return;
 	}
 
+	// Plugin scripts and styles.
+	wp_enqueue_style( 'html-widget', plugin_dir_url( __FILE__ ) . 'plugin.css' );
+	wp_enqueue_script( 'html-widget', plugin_dir_url( __FILE__ ) . 'plugin.js' );
+
 	// Codemirror scripts and styles.
-	wp_enqueue_style( 'html-widget', plugin_dir_url( __FILE__ ) . 'codemirror/codemirror.css' );
-	wp_enqueue_script( 'html-widget', plugin_dir_url( __FILE__ ) . 'codemirror/codemirror.js' );
+	wp_enqueue_style( 'html-widget-codemirror', plugin_dir_url( __FILE__ ) . 'codemirror/codemirror.css' );
+	wp_enqueue_script( 'html-widget-codemirror', plugin_dir_url( __FILE__ ) . 'codemirror/codemirror.js' );
 
 	// Codemirror modes.
-	wp_enqueue_script( 'html-widget-mode-xml', plugin_dir_url( __FILE__ ) . 'codemirror/mode/xml/xml.js' );
-	wp_enqueue_script( 'html-widget-mode-css', plugin_dir_url( __FILE__ ) . 'codemirror/mode/css/css.js' );
-	wp_enqueue_script( 'html-widget-mode-js', plugin_dir_url( __FILE__ ) . 'codemirror/mode/javascript/javascript.js' );
-	wp_enqueue_script( 'html-widget-mode-html', plugin_dir_url( __FILE__ ) . 'codemirror/mode/htmlmixed/htmlmixed.js' );
+	wp_enqueue_script( 'html-widget-mode-xml', plugin_dir_url( __FILE__ ) . 'codemirror/mode/xml.js' );
+	wp_enqueue_script( 'html-widget-mode-css', plugin_dir_url( __FILE__ ) . 'codemirror/mode/css.js' );
+	wp_enqueue_script( 'html-widget-mode-js', plugin_dir_url( __FILE__ ) . 'codemirror/mode/javascript.js' );
+	wp_enqueue_script( 'html-widget-mode-html', plugin_dir_url( __FILE__ ) . 'codemirror/mode/htmlmixed.js' );
 
 	// Codemirror addons.
 	wp_enqueue_script( 'html-widget-autorefresh', plugin_dir_url( __FILE__ ) . 'codemirror/addon/autorefresh.js' );
@@ -93,7 +97,7 @@ class HTML_Widget extends WP_Widget {
 	);
 
 	/**
-	 * Sets up a new HTML Code widget instance.
+	 * Sets up a new HTML widget instance.
 	 *
 	 * @since 0.1.0
 	 */
@@ -108,7 +112,7 @@ class HTML_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Outputs the content for the current HTML Code widget instance.
+	 * Outputs the content for the current widget instance.
 	 *
 	 * @since 0.1.0
 	 * @param array $args     Default widget arguments.
@@ -138,7 +142,7 @@ class HTML_Widget extends WP_Widget {
 	 * @since  0.1.0
 	 * @param  array $new_instance New settings for this instance.
 	 * @param  array $old_instance Old settings for this instance.
-	 * @return array Settings to save or bool false to cancel saving.
+	 * @return array $instance     Settings to save or bool false to cancel saving.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array_merge( $this->default_instance, $old_instance );
@@ -160,13 +164,7 @@ class HTML_Widget extends WP_Widget {
 	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, $this->default_instance );
 
-		// Print inline script and styles so we can use `$this` object. ?>
-		<style>
-		.CodeMirror {
-			border: 1px solid #e5e5e5;
-		}
-		</style>
-
+		// Print inline script and styles so we can use `$this`. ?>
 		<script>
 		jQuery( document ).ready( function( $ ) {
 			var editor = CodeMirror.fromTextArea( document.getElementById( '<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>' ), {
@@ -190,7 +188,7 @@ class HTML_Widget extends WP_Widget {
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>" class="screen-reader-text"><?php esc_html_e( 'Content:', 'html-widget' ); ?></label>
-			<textarea class="widefat code" rows="16" cols="20" id="<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'content' ) ); ?>"><?php echo esc_textarea( $instance['content'] ); ?></textarea>
+			<textarea class="widefat html-widget" rows="16" cols="20" id="<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'content' ) ); ?>"><?php echo esc_textarea( $instance['content'] ); ?></textarea>
 		</p>
 
 		<?php if ( ! current_user_can( 'unfiltered_html' ) ) : ?>
