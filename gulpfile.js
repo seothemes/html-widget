@@ -1,32 +1,32 @@
 // Require our dependencies
 var autoprefixer = require('autoprefixer');
-var browserSync = require('browser-sync');
-var cheerio = require('gulp-cheerio');
-var concat = require('gulp-concat');
-var cssnano = require('gulp-cssnano');
-var del = require('del');
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var mqpacker = require('css-mqpacker');
-var notify = require('gulp-notify');
-var plumber = require('gulp-plumber');
-var postcss = require('gulp-postcss');
-var reload = browserSync.reload;
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var sassLint = require('gulp-sass-lint');
-var sort = require('gulp-sort');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-var wpPot = require('gulp-wp-pot');
+var browserSync  = require('browser-sync');
+var cheerio      = require('gulp-cheerio');
+var concat       = require('gulp-concat');
+var cssnano      = require('gulp-cssnano');
+var del          = require('del');
+var gulp         = require('gulp');
+var gutil        = require('gulp-util');
+var mqpacker     = require('css-mqpacker');
+var notify       = require('gulp-notify');
+var plumber      = require('gulp-plumber');
+var postcss      = require('gulp-postcss');
+var reload       = browserSync.reload;
+var rename       = require('gulp-rename');
+var sass         = require('gulp-sass');
+var sassLint     = require('gulp-sass-lint');
+var sort         = require('gulp-sort');
+var sourcemaps   = require('gulp-sourcemaps');
+var uglify       = require('gulp-uglify');
+var wpPot        = require('gulp-wp-pot');
 
 // Set assets paths.
 var paths = {
-    css: './assets/styles/min/',
-    sass: './assets/styles/*.scss',
-    concat: ['./assets/scripts/*.js', '!./assets/scripts/*.min.js' ],
+    css:     './assets/styles/min/',
+    sass:    './assets/styles/*.scss',
+    concat:  './assets/scripts/*.js',
     scripts: './assets/scripts/min/',
-    php: './*.php'
+    php:     './*.php'
 };
 
 /**
@@ -188,7 +188,6 @@ gulp.task('watch', function() {
     });
 
     // Run tasks when files change.
-    gulp.watch(paths.icons, ['icons']);
     gulp.watch(paths.sass, ['styles']);
     gulp.watch(paths.scripts, ['scripts']);
     gulp.watch(paths.concat, ['scripts']);

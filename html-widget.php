@@ -93,7 +93,7 @@ class HTML_Widget extends WP_Widget {
 			'customize_selective_refresh' => true,
 		);
 		$control_ops = array();
-		parent::__construct( 'html_widget', __( 'HTML', 'html-widget' ), $widget_ops, $control_ops );
+		parent::__construct( 'html-widget', __( 'HTML', 'html-widget' ), $widget_ops, $control_ops );
 	}
 
 	/**
