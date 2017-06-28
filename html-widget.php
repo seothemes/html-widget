@@ -67,9 +67,9 @@ function html_widget_scripts_styles() {
 	wp_enqueue_script( 'html-widget-mode-html', plugin_dir_url( __FILE__ ) . 'codemirror/mode/htmlmixed/htmlmixed.js' );
 
 	// Codemirror addons.
-	wp_enqueue_script( 'html-widget-autorefresh', plugin_dir_url( __FILE__ ) . 'codemirror/addon/display/autorefresh.js' );
-	wp_enqueue_script( 'html-widget-closebrackets', plugin_dir_url( __FILE__ ) . 'codemirror/addon/edit/closebrackets.js' );
-	wp_enqueue_script( 'html-widget-closetag', plugin_dir_url( __FILE__ ) . 'codemirror/addon/edit/closetag.js' );
+	wp_enqueue_script( 'html-widget-autorefresh', plugin_dir_url( __FILE__ ) . 'codemirror/addon/autorefresh.js' );
+	wp_enqueue_script( 'html-widget-closebrackets', plugin_dir_url( __FILE__ ) . 'codemirror/addon/closebrackets.js' );
+	wp_enqueue_script( 'html-widget-closetag', plugin_dir_url( __FILE__ ) . 'codemirror/addon/closetag.js' );
 
 }
 
@@ -168,13 +168,13 @@ class HTML_Widget extends WP_Widget {
 		</style>
 
 		<script>
-		jQuery(document).ready(function($) {
-			var editor = CodeMirror.fromTextArea( document.getElementById('<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>'), {
-				height: "350px",
-				parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js", "parsehtmlmixed.js"],
-				stylesheet: ["css/xmlcolors.css", "css/jscolors.css", "css/csscolors.css"],
-				path: "js/",
-				mode: "htmlmixed",
+		jQuery( document ).ready( function( $ ) {
+			var editor = CodeMirror.fromTextArea( document.getElementById( '<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>' ), {
+				height: '350px',
+				parserfile: ['parsexml.js', 'parsecss.js', 'tokenizejavascript.js', 'parsejavascript.js', 'parsehtmlmixed.js'],
+				stylesheet: ['css/xmlcolors.css', 'css/jscolors.css', 'css/csscolors.css'],
+				path: 'js/',
+				mode: 'htmlmixed',
 				tabSize: 2,
 				autoRefresh: true,
 				autoCloseBrackets: true,
@@ -182,10 +182,9 @@ class HTML_Widget extends WP_Widget {
 				value: document.documentElement.innerHTML,
 				lineWrapping: true,
 			} );
-			editor.on("change", function(editor, change) {
-				document.getElementById('<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>').value = editor.getValue();
+			editor.on( 'change', function( editor, change ) {
+				document.getElementById( '<?php echo esc_attr( $this->get_field_id( 'content' ) ); ?>' ).value = editor.getValue();
 			});
-			editor.refresh();
 		} );
 		</script>
 
